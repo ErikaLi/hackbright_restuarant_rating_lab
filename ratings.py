@@ -26,23 +26,26 @@ def is_continue():
         print "Please enter either Y or N."
         is_continue()
 
+def get_rating():
+    rating = raw_input("Please rate this restaurant (1 - 5) ")
+    while not is_valid(rating):
+        print "This is not a valid number. Please enter a number between 1 and 5. " 
+        rating = raw_input("Please rate this restaurant (1 - 5) ")
+    return int(rating)
+    
 
-def valid_rating():
+def is_valid(score):
     try:
-        rating = int(raw_input("Please rate this restaurant (1 - 5) "))
-        return rating
+        score = int(score)
+        return score in range(1, 6)
     except ValueError:
         print("Oops!  That was no valid number.  Try again...")
-        return valid_rating()
+        return False
 
 
 while True:
     user_restaurant = raw_input("What is the restaurant name? ")
-    user_rating = valid_rating()
-    #print user_rating
-    if user_rating not in range(1, 6):
-        print "This is not a valid number. Please enter a number between 1 and 5. "
-        valid_rating()
+    user_rating = get_rating()
     restaurant_ratings[user_restaurant] = user_rating
     if is_continue():
         break
